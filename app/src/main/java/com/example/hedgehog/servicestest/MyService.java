@@ -18,13 +18,13 @@ public class MyService extends Service {
 
     public void onCreate() {
         super.onCreate();
-        Log.d(LOG_TAG, "onCreate");
+        //Log.d(LOG_TAG, "onCreate");
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(LOG_TAG, "onStartCommand");
+
         isRunningNow = true;
-        someTask();
+        someTask(startId);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -34,11 +34,11 @@ public class MyService extends Service {
         return null;
     }
 
-    void someTask() {
+    void someTask(final int startID) {
         new Thread(new Runnable() {
             public void run() {
-                for (int i = 1; i<=20; i++) {
-                    Log.d(LOG_TAG, "i = " + i);
+                for (int i = 1; i<=5; i++) {
+                    Log.d(LOG_TAG, "i = " + i + " id: " + startID );
                     try {
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
@@ -48,7 +48,9 @@ public class MyService extends Service {
                         break;
                     }
                 }
-                stopSelf();
+
+                boolean result = stopSelfResult(startID);
+                Log.d (LOG_TAG, "result " + startID  + " " + result);
             }
         }).start();
     }
@@ -56,7 +58,7 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(LOG_TAG, "destroy" );
+       // Log.d(LOG_TAG, "destroy" );
         isRunningNow = false;
     }
 }
