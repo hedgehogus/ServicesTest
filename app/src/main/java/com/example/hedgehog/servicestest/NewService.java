@@ -10,22 +10,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class NewService extends Service {
-    public NewService() {
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
     final String LOG_TAG = "myLogs";
     ExecutorService es;
     Object someRes;
 
+    public NewService() {}
+
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "MyService onCreate");
-        es = Executors.newFixedThreadPool(1);
+        es = Executors.newFixedThreadPool(1); // получает от нас задачи (Runnable) и запускает их по очереди в одном потоке
+        //Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue (number of output threads).
         someRes = new Object();
     }
 
@@ -45,7 +46,6 @@ public class NewService extends Service {
 
 
     class MyRun implements Runnable {
-
         int time;
         int startId;
 
