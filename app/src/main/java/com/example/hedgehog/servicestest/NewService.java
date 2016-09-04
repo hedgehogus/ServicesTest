@@ -14,7 +14,6 @@ public class NewService extends Service {
     ExecutorService es;
     Object someRes;
 
-    public NewService() {}
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,7 +24,7 @@ public class NewService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(LOG_TAG, "MyService onCreate");
-        es = Executors.newFixedThreadPool(1); // получает от нас задачи (Runnable) и запускает их по очереди в одном потоке
+        es = Executors.newFixedThreadPool(3); // получает от нас задачи (Runnable) и запускает их по очереди в одном потоке
         //Creates a thread pool that reuses a fixed number of threads operating off a shared unbounded queue (number of output threads).
         someRes = new Object();
     }
@@ -41,7 +40,11 @@ public class NewService extends Service {
         int time = intent.getIntExtra("time", 1);
         MyRun mr = new MyRun(time, startId);
         es.execute(mr);
-        return super.onStartCommand(intent, flags, startId);
+        //START_NOT_STICKY – сервис не будет перезапущен после того, как был убит системой
+        //START_STICKY – сервис будет перезапущен после того, как был убит системой
+        //START_REDELIVER_INTENT – сервис будет перезапущен после того, как был убит системой.
+        // Кроме этого, сервис снова получит все вызовы startService, которые не были завершены методом stopSelf(startId).
+        return START_REDELIVER_INTENT;
     }
 
 

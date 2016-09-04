@@ -29,19 +29,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-      /* if (!MyService.isRunningNow){
+       if (!MyService.isRunningNow){
            mbStart.setText(R.string.stop);
            MyService.isRunningNow = true;
-           startService(new Intent(this, NewService.class));
+           startService(new Intent(this, MyService.class));
        }else {
            mbStart.setText(R.string.start);
            MyService.isRunningNow = false;
            stopService(new Intent(this, MyService.class));
-       }*/
-        Log.d("myLogs", "dfdf");
-        startService(new Intent(this, NewService.class).putExtra("time", 7));
+       }
+
+        /*startService(new Intent(this, NewService.class).putExtra("time", 7));
         startService(new Intent(this, NewService.class).putExtra("time", 2));
-        startService(new Intent(this, NewService.class).putExtra("time", 4));
+        startService(new Intent(this, NewService.class).putExtra("time", 4));*/
         //Будет создано и передано экзекьютору три MyRun-объекта. Он их по очереди начнет выполнять.
         // Это займет у него соответственно 7,2 и 4 секунд (время паузы мы передаем в intent-е).
         // В конце обработки каждого MyRun будет выполняться stopSelf(startId).
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        stopService(new Intent (this, NewService.class));
+        //stopService(new Intent (this, NewService.class));
         super.onBackPressed();
     }
 }

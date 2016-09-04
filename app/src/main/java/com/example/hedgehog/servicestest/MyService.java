@@ -25,7 +25,11 @@ public class MyService extends Service {
 
         isRunningNow = true;
         someTask(startId);
-        return super.onStartCommand(intent, flags, startId);
+        //START_NOT_STICKY – сервис не будет перезапущен после того, как был убит системой
+        //START_STICKY – сервис будет перезапущен после того, как был убит системой
+        //START_REDELIVER_INTENT – сервис будет перезапущен после того, как был убит системой.
+        // Кроме этого, сервис снова получит все вызовы startService, которые не были завершены методом stopSelf(startId).
+        return START_REDELIVER_INTENT;
     }
 
     @Nullable
@@ -37,7 +41,7 @@ public class MyService extends Service {
     void someTask(final int startID) {
         new Thread(new Runnable() {
             public void run() {
-                for (int i = 1; i<=5; i++) {
+                for (int i = 1; i<=180; i++) {
                     Log.d(LOG_TAG, "i = " + i + " id: " + startID );
                     try {
                         TimeUnit.SECONDS.sleep(1);
