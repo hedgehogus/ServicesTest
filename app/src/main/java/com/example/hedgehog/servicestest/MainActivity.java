@@ -29,15 +29,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-       if (!MyService.isRunningNow){
-           mbStart.setText(R.string.stop);
-           MyService.isRunningNow = true;
-           startService(new Intent(this, MyService.class));
-       }else {
-           mbStart.setText(R.string.start);
-           MyService.isRunningNow = false;
-           stopService(new Intent(this, MyService.class));
-       }
+      // if (!MyService.isRunningNow){
+         //  mbStart.setText(R.string.stop);
+         //  MyService.isRunningNow = true;
+         //  startService(new Intent(this, MyService.class));
+        startService(new Intent("com.x.y.servicc").putExtra("name", "value"));
+     //  }else {
+          // mbStart.setText(R.string.start);
+          // MyService.isRunningNow = false;
+          // stopService(new Intent(this, MyService.class));
+     //  }
 
         /*startService(new Intent(this, NewService.class).putExtra("time", 7));
         startService(new Intent(this, NewService.class).putExtra("time", 2));

@@ -17,7 +17,6 @@ public class NewService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
